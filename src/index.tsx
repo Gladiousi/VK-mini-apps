@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css'; // Подключаем стили
-import App from './App'; // Импортируем основной компонент
+import './index.css'; 
+import App from './App'; 
+import bridge from '@vkontakte/vk-bridge';
+
+bridge.send('VKWebAppInit');  
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
