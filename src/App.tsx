@@ -1,51 +1,55 @@
-import * as React from 'react';
-import { createRoot } from 'react-dom/client';
+import * as React from "react";
 import {
-  AdaptivityProvider,
-  ConfigProvider,
   AppRoot,
-  SplitLayout,
-  SplitCol,
   View,
   Panel,
   PanelHeader,
-  Header,
   Group,
-  SimpleCell,
-  usePlatform,
-} from '@vkontakte/vkui';
-import '@vkontakte/vkui/dist/vkui.css';
+  Header,
+  CardGrid,
+} from "@vkontakte/vkui";
+import "@vkontakte/vkui/dist/vkui.css";
+import CardGroup from "./CardGroup";
+import { vkApi, VKGroup } from "./api/vkApi";
 
 const App = () => {
-  const platform = usePlatform();
+  const [groups, setGroups] = React.useState<VKGroup[]>([]);
+
+  React.useEffect(() => {
+    const loadGroups = async () => {
+      try {
+        const userGroups = await vkApi.getUserGroups();
+        setGroups(userGroups);
+      } catch (error) {
+        console.error("Failed to load groups:", error);
+      }
+    };
+
+    loadGroups();
+  }, []);
 
   return (
     <AppRoot>
-      <SplitLayout header={platform !== 'vkcom' && <PanelHeader delimiter="none" />}>
-        <SplitCol autoSpaced>
-          <View activePanel="main">
-            <Panel id="main">
-              <PanelHeader>VKUI</PanelHeader>
-              <Group header={<Header>Items</Header>}>
-                <SimpleCell>Hello</SimpleCell>
-                <SimpleCell>World</SimpleCell>
-              </Group>
-            </Panel>
-          </View>
-        </SplitCol>
-      </SplitLayout>
+      <View activePanel="main">
+        <Panel id="main">
+          <PanelHeader>Подключайте VK Donut</PanelHeader>
+          <Group className="m-2" mode="card" header={<Header>Groups</Header>}>
+            <CardGrid size="l" style={{ gridTemplateColumns: "1fr" }}>
+              {groups.map((group) => (
+                <CardGroup
+                  key={group.id}
+                  id={group.id}
+                  title={group.name}
+                  membersCount={group.members_count}
+                  photo={group.photo_100}
+                />
+              ))}
+            </CardGrid>
+          </Group>
+        </Panel>
+      </View>
     </AppRoot>
   );
 };
-
-const container = document.getElementById('root');
-const root = createRoot(container!);
-root.render(
-  <ConfigProvider>
-    <AdaptivityProvider>
-      <App />
-    </AdaptivityProvider>
-  </ConfigProvider>,
-);
 
 export default App;
