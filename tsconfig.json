@@ -17,6 +17,6 @@
     "src"
   ],
   "exclude": [
-    "server/server.js"  
+    "node_modules"
   ]
 }

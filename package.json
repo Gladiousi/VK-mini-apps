@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@vkontakte/icons": "^2.160.0",
     "@vkontakte/vk-bridge": "^2.15.3",
+    "@vkontakte/vk-mini-apps-router": "^1.7.1",
     "@vkontakte/vk-miniapps-deploy": "^0.1.9",
     "@vkontakte/vk-tunnel": "^0.2.4",
-    "axios": "^1.7.9",
+    "@vkontakte/vkui": "^7.1.0",
     "cors": "^2.8.5",
     "cra-template-typescript": "1.2.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "cross-env PORT=3000 HTTPS=true react-scripts start",
@@ -44,9 +45,11 @@
     ]
   },
   "devDependencies": {
-    "@types/react-dom": "^19.0.2",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "typescript": "^3.9.10"
   }
 }
