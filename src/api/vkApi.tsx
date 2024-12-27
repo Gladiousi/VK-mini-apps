@@ -18,22 +18,22 @@ class VKApi {
     });
     return auth.access_token;
   }
-
-  async getUserGroups(): Promise<VKGroup[]> {
-    const token = await this.getAuthToken();
+    async getUserGroups(): Promise<VKGroup[]> {
+      const token = await this.getAuthToken();
     
-    const response = await bridge.send('VKWebAppCallAPIMethod', {
-      method: 'groups.get',
-      params: {
-        extended: 1,
-        fields: 'members_count,photo_100',
-        access_token: token,
-        v: this.API_VERSION
-      }
-    });
+      const response = await bridge.send('VKWebAppCallAPIMethod', {
+        method: 'groups.get',
+        params: {
+          filter: 'admin',
+          extended: 1,
+          fields: 'members_count,photo_100',
+          access_token: token,
+          v: this.API_VERSION
+        }
+      });
 
-    return response.response.items;
+      return response.response.items;
+    }
   }
-}
 
 export const vkApi = new VKApi();
